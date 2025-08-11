@@ -249,7 +249,8 @@ def main():
     print(f"Models to analyze: {', '.join(models)}")
     
     # Number of sessions per model (reduced for testing)
-    num_sessions = min(5, OUROBOROS_CONFIG['prompts_per_model'])  # Start with 5 for testing
+    # num_sessions = min(5, OUROBOROS_CONFIG['prompts_per_model'])  # Start with 5 for testing
+    num_sessions = OUROBOROS_CONFIG['prompts_per_model']  # Will use 50 from config
     
     # Collect data for each model
     all_sessions = {}
