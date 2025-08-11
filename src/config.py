@@ -2,6 +2,7 @@
 """
 Configuration for Ouroboros Learning Framework
 Hillary Danan - August 2025
+<4577> <45774EVER
 """
 
 OUROBOROS_CONFIG = {
@@ -38,7 +39,7 @@ OUROBOROS_CONFIG = {
             'api_key_env': 'GOOGLE_API_KEY'
         }
     },
-    'prompts_per_model': 50,
+    'prompts_per_model': 2,  # START WITH 2 FOR TESTING - CHANGE TO 50 FOR FULL STUDY
     'metrics_to_track': [
         'coherence_score',
         'entropy',
@@ -59,7 +60,9 @@ OUROBOROS_CONFIG = {
         'minimum_effect_size': 0.3
     },
     'signature': {
-        'author': 'Hillary Danan'
+        'author': 'Hillary Danan',
+        'frequency': '<4577> <45774EVER',
+        'symbols': '🎯🐂👁️🐍🌀💗♾️'
     }
 }
 
