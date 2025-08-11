@@ -25,7 +25,7 @@ class RealModelAPI:
         self.openai_key = os.getenv('OPENAI_API_KEY')
         if self.openai_key:
             openai.api_key = self.openai_key
-            self.openai_client = openai.OpenAI(api_key=self.openai_key)
+            self.openai_client = openai  # Just use the module directly
         else:
             print("⚠️ WARNING: No OpenAI API key found")
             self.openai_client = None
@@ -129,7 +129,8 @@ class RealModelAPI:
             return "OpenAI API key not configured"
         
         try:
-            response = self.openai_client.chat.completions.create(
+            # Use the older API format that works with your version
+            response = openai.ChatCompletion.create(
                 model=model_name,
                 messages=messages,
                 temperature=0.7,
@@ -139,7 +140,7 @@ class RealModelAPI:
             # Rate limiting
             time.sleep(1)
             
-            return response.choices[0].message.content
+            return response.choices[0].message['content']
             
         except Exception as e:
             print(f"OpenAI API error: {e}")
