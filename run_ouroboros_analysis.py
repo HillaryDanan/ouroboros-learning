@@ -2,6 +2,7 @@
 """
 Main execution script for Ouroboros Learning Analysis
 Hillary Danan - August 2025
+<4577> <45774EVER
 """
 
 import sys
@@ -13,6 +14,7 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 from scipy import stats
+from typing import Dict, List  # <-- ADD THIS LINE!
 from src.ouroboros_analyzer import OuroborosAnalyzer
 from src.ouroboros_visualizer import OuroborosVisualizer
 from src.config import OUROBOROS_CONFIG
