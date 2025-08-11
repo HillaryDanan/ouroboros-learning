@@ -1,0 +1,35 @@
+# Environment variables - NEVER COMMIT!
+.env
+.env.local
+.env.*.local
+
+# Virtual environment
+venv/
+env/
+ENV/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Data and results
+data/
+results/
+plots/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
