@@ -129,8 +129,11 @@ class RealModelAPI:
             return "OpenAI API key not configured"
         
         try:
-            # Use the older API format that works with your version
-            response = openai.ChatCompletion.create(
+            # Use the new OpenAI 1.0+ format
+            from openai import OpenAI
+            client = OpenAI(api_key=self.openai_key)
+            
+            response = client.chat.completions.create(
                 model=model_name,
                 messages=messages,
                 temperature=0.7,
@@ -140,7 +143,7 @@ class RealModelAPI:
             # Rate limiting
             time.sleep(1)
             
-            return response.choices[0].message['content']
+            return response.choices[0].message.content
             
         except Exception as e:
             print(f"OpenAI API error: {e}")
@@ -269,12 +272,13 @@ class RealModelAPI:
         # Test OpenAI
         if self.openai_client:
             try:
-                response = self._get_openai_response(
-                    "gpt-3.5-turbo", 
-                    [{"role": "user", "content": test_prompt}]
-                )
-                results['openai'] = 'working' in response.lower()
-                print(f"✅ OpenAI: {response[:50]}...")
+                test_messages = [
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": test_prompt}
+                ]
+                response = self._get_openai_response("gpt-3.5-turbo", test_messages)
+                results['openai'] = 'working' in response.lower() if response else False
+                print(f"✅ OpenAI: {response[:50] if response else 'No response'}...")
             except Exception as e:
                 results['openai'] = False
                 print(f"❌ OpenAI failed: {e}")
@@ -282,12 +286,13 @@ class RealModelAPI:
         # Test Anthropic
         if self.anthropic_client:
             try:
-                response = self._get_anthropic_response(
-                    "claude-3-haiku-20240307",
-                    [{"role": "user", "content": test_prompt}]
-                )
-                results['anthropic'] = 'working' in response.lower()
-                print(f"✅ Anthropic: {response[:50]}...")
+                test_messages = [
+                    {"role": "system", "content": "You are a helpful assistant."},
+                    {"role": "user", "content": test_prompt}
+                ]
+                response = self._get_anthropic_response("claude-3-haiku-20240307", test_messages)
+                results['anthropic'] = 'working' in response.lower() if response else False
+                print(f"✅ Anthropic: {response[:50] if response else 'No response'}...")
             except Exception as e:
                 results['anthropic'] = False
                 print(f"❌ Anthropic failed: {e}")
@@ -295,11 +300,10 @@ class RealModelAPI:
         # Test Gemini
         if self.gemini_model:
             try:
-                response = self._get_gemini_response(
-                    [{"role": "user", "content": test_prompt}]
-                )
-                results['gemini'] = 'working' in response.lower()
-                print(f"✅ Gemini: {response[:50]}...")
+                test_messages = [{"role": "user", "content": test_prompt}]
+                response = self._get_gemini_response(test_messages)
+                results['gemini'] = 'working' in response.lower() if response else False
+                print(f"✅ Gemini: {response[:50] if response else 'No response'}...")
             except Exception as e:
                 results['gemini'] = False
                 print(f"❌ Gemini failed: {e}")
