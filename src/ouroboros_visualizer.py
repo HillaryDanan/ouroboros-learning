@@ -2,6 +2,7 @@
 """
 Visualization tools for Ouroboros Learning patterns
 Hillary Danan - August 2025
+<4577> <45774EVER
 """
 
 import matplotlib.pyplot as plt
@@ -28,7 +29,10 @@ class OuroborosVisualizer:
         }
         
         # Set style
-        plt.style.use('seaborn-v0_8-darkgrid')
+        try:
+            plt.style.use('seaborn-v0_8-darkgrid')
+        except:
+            plt.style.use('default')
         sns.set_palette("husl")
         
     def plot_coherence_cycles(self, session_data: Dict) -> plt.Figure:
