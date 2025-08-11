@@ -1,7 +1,7 @@
 # 🚀 QUICK START GUIDE
 
 ## Ouroboros Learning Framework
-### Hillary Danan | 
+### Hillary Danan | August 2025
 
 ## 💻 Step 1: Clone to Your Desktop
 
