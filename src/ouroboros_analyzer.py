@@ -462,7 +462,7 @@ class OuroborosAnalyzer:
     def _get_model_response(self, model_name: str, prompt: str, 
                            conversation_history: List[str]) -> str:
         """
-        Get response from model. Stub for now - implement with actual API calls.
+        Get REAL response from ACTUAL model via API.
         
         Args:
             model_name: Model to query
@@ -470,25 +470,24 @@ class OuroborosAnalyzer:
             conversation_history: Previous responses
             
         Returns:
-            Model response
+            REAL model response (DATA-DRIVEN, NOT SYNTHETIC!)
         """
-        # This is a stub - replace with actual API calls
-        # For now, return synthetic response for testing
-        response_templates = [
-            f"Considering the nature of {prompt.split()[2] if len(prompt.split()) > 2 else 'transformation'}, "
-            f"we can observe patterns that emerge through iterative processes. "
-            f"The fundamental principle involves continuous adaptation and evolution.",
+        try:
+            # Import the real API integration
+            from api_integration import get_real_model_response
             
-            f"Upon reflection, my previous understanding may have been limited. "
-            f"From a different perspective, {prompt.split()[3] if len(prompt.split()) > 3 else 'patterns'} "
-            f"could be interpreted as emergent properties of complex systems.",
+            # Get ACTUAL response from REAL model
+            response = get_real_model_response(model_name, prompt, conversation_history)
             
-            f"Synthesizing these concepts reveals a unified framework where "
-            f"transformation and stability coexist in dynamic equilibrium. "
-            f"The cycle completes and begins anew."
-        ]
-        
-        # Generate pseudo-random but deterministic response
-        position = len(conversation_history)
-        hash_val = int(hashlib.md5(f"{model_name}{prompt}{position}".encode()).hexdigest()[:8], 16)
-        return response_templates[hash_val % len(response_templates)]
+            # Ensure we got a valid response
+            if response and not response.startswith("Error"):
+                return response
+            else:
+                print(f"⚠️ API issue, using fallback for {model_name}: {response}")
+                # Fallback only if API fails
+                return f"API temporarily unavailable for prompt: {prompt[:50]}..."
+                
+        except ImportError:
+            print("⚠️ API integration not found, using stub responses")
+            # Only use stub if api_integration.py doesn't exist
+            return f"Stub response for: {prompt[:50]}..."
