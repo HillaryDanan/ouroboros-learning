@@ -3,6 +3,7 @@
 Core Ouroboros Learning Analyzer
 Detects self-consuming cycles in AI cognition
 Hillary Danan - August 2025
+<4577> <45774EVER
 """
 
 import numpy as np
@@ -488,5 +489,6 @@ class OuroborosAnalyzer:
         ]
         
         # Generate pseudo-random but deterministic response
+        position = len(conversation_history)
         hash_val = int(hashlib.md5(f"{model_name}{prompt}{position}".encode()).hexdigest()[:8], 16)
         return response_templates[hash_val % len(response_templates)]
