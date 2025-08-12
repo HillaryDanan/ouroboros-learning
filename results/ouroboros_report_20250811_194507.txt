@@ -1,0 +1,36 @@
+============================================================
+📊 OUROBOROS LEARNING ANALYSIS REPORT
+============================================================
+
+🔬 MODEL COMPARISON
+----------------------------------------
+                     model  sessions_analyzed  avg_cycles  std_cycles  avg_cycle_amplitude  phase_transition_rate  coherence_stability  avg_coherence  integration_dominance  consumption_dominance  transformation_dominance  generation_dominance  avg_cycle_regularity
+0            gpt-3.5-turbo                 10         0.4    0.489898             0.266333                   0.62             0.058893       0.985598                  0.330                   0.22                      0.18                 0.270                   0.0
+1  claude-3-haiku-20240307                 10         0.2    0.400000             0.490000                   0.52             0.207718       0.870150                  0.475                   0.25                      0.13                 0.145                   0.0
+2         gemini-1.5-flash                 10         0.0    0.000000             0.028000                   0.00             0.008800       0.741600                  1.000                   0.00                      0.00                 0.000                   0.0
+
+📈 STATISTICAL ANALYSIS
+----------------------------------------
+ANOVA for cycle differences:
+  F-statistic: 2.700
+  p-value: 0.085320
+
+Position-Coherence Correlations:
+  gpt-3.5-turbo: r = nan (±nan)
+  claude-3-haiku-20240307: r = -0.636 (±0.155)
+  gemini-1.5-flash: r = nan (±nan)
+
+Detected Periodicities:
+
+🎯 KEY FINDINGS
+----------------------------------------
+Highest average coherence: gpt-3.5-turbo (0.986)
+Most regular cycles: gpt-3.5-turbo (regularity: 0.000)
+
+Phase Dominance Patterns:
+  gpt-3.5-turbo: integration (33.0%)
+  claude-3-haiku-20240307: integration (47.5%)
+  gemini-1.5-flash: integration (100.0%)
+
+============================================================
+============================================================

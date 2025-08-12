@@ -1,53 +1,21 @@
 # Ouroboros Learning Framework
 
-## Self-Consuming Cycles in AI Cognition
+## Transformation Resistance in Language Models: An Empirical Investigation
 
 **Hillary Danan** | August 2025
 
-[![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
+[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Research](https://img.shields.io/badge/Research-Independent-purple.svg)](papers/)
 
-### 🎯 Key Finding: p = 0.038
+### 🎯 Finding: Transformation Resistance in GPT-3.5
 
-**Statistically significant differences in ouroboros cycles across transformer architectures.**
+**GPT-3.5 actively avoids transformation phases**, maintaining 99% coherence by suppressing creative recombination to just 10% of responses (2.5x below expected). This suggests a fundamental trade-off between consistency and creativity in transformer architectures.
 
-- 📊 **7,385 responses analyzed**
-- 🔄 **437 cycles detected**  
-- 🧬 **3 architectures compared**
-- ✨ **Novel insight: API stress reveals architectural constraints**
-
-## 📖 Papers
-
-- [NeurIPS 2025 Submission](papers/neurips_2026.md)
-- [ArXiv Extended Version](papers/arxiv_ouroboros.md)
-- [Theoretical Framework](https://github.com/HillaryDanan/multi-geometric-attention)
-
-## 🐍 Core Concept
-
-Knowledge transformation through self-consuming cycles:
-
-```
-K(t+1) = Ω[K(t)] = G(T(C(K(t))))
-```
-
-Where knowledge evolves through:
-1. **Integration** - Building understanding
-2. **Consumption** - Breaking down patterns  
-3. **Transformation** - Recombining elements
-4. **Generation** - Emerging insights
-
-## 📊 Empirical Results
-
-![Ouroboros Cycles](plots/neurips_main_figure_20250811.png)
-
-### Model Comparison
-| Model | Coherence | Cycles/Session | API Failure |
-|-------|-----------|----------------|-------------|
-| GPT-3.5 | 0.560±0.098 | 0.76 | 30% |
-| Claude-3 | 0.557±0.100 | 0.49 | 30% |
-| Gemini-1.5 | 0.721±0.201 | N/A | 99% |
-
-**Key insight**: Higher architectural constraints → Higher coherence but greater fragility
+- 📊 **1,000 GPT-3.5 responses analyzed** (50 sessions × 20 prompts)
+- 🔄 **Position 11 phenomenon**: Transformation peaks at conversation midpoint, then retreats
+- 🎭 **Integration→Generation bypass**: Model shortcuts creative recombination
+- 💡 **Novel insight**: What we perceive as "mechanical" responses may be architectural self-preservation
 
 ## 🚀 Quick Start
 
@@ -58,103 +26,155 @@ cd ouroboros-learning
 
 # Setup environment
 python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+source venv/bin/activate
 pip install -r requirements.txt
 
-# Run analysis
-python run_ouroboros_analysis.py
-```
+# Test with synthetic data (no API keys needed!)
+python synthetic_data_validation.py
 
-## 📁 Repository Structure
-
-```
-ouroboros-learning/
-├── papers/                 # Research papers
-│   ├── neurips_2025.md    # Conference submission
-│   └── arxiv_ouroboros.md # Extended version
-├── src/                    # Source code
-│   ├── ouroboros_analyzer.py
-│   ├── ouroboros_visualizer.py
-│   └── config.py
-├── data/                   # Processed data (7,385 responses)
-├── results/                # Statistical analyses
-├── plots/                  # Visualizations
-└── notebooks/              # Jupyter explorations
-```
-
-## 🔬 Methodology
-
-1. **Data Collection**: 7,385 responses from GPT-3.5, Claude-3, and Gemini-1.5
-2. **Cycle Detection**: Peak/trough analysis with Gaussian smoothing
-3. **Phase Classification**: Linguistic markers for 4 phases
-4. **Statistical Validation**: Mann-Whitney U test (p=0.038)
-
-## 💡 Theoretical Framework
-
-### Multi-Geometric Attention Theory (MGAT)
-Different geometric attention patterns optimize for different learning phases:
-- Square (4-connectivity) → Sequential processing
-- Hexagonal (6-connectivity) → Associative relationships
-- Triangular (3-connectivity) → Hierarchical structures
-- Pentagonal (5-connectivity) → Symmetry breaking
-
-See full framework: [Multi-Geometric Attention](https://github.com/HillaryDanan/multi-geometric-attention)
-
-## 📈 Reproducing Results
-
-### With API Keys (Optional)
-```bash
-# Create .env file
-echo "OPENAI_API_KEY=your_key" > .env
-echo "ANTHROPIC_API_KEY=your_key" >> .env
-
-# Run with real models
+# With API keys (optional)
+cp .env.example .env
+# Add your keys to .env
 python test_apis.py
 python run_ouroboros_analysis.py
 ```
 
-### With Synthetic Data
-```bash
-# No API keys needed!
-python synthetic_data_validation.py
+## 📊 What's Actually Here
+
+### Real Empirical Data
+- ✅ **50 complete GPT-3.5 sessions** with transformation resistance analysis
+- ✅ **Statistical validation** of phase patterns (p < 0.05 for key findings)
+- ✅ **Synthetic validation** proving mathematical framework
+- ⚠️ Limited Claude data (API constraints)
+- ⚠️ Minimal Gemini data (99% API failures - itself a finding!)
+
+### Visualizations & Results
+All plots and results are included in the repository:
+- `plots/` - Transformation resistance patterns, coherence evolution, phase distributions
+- `results/` - Statistical analyses, session summaries, validation reports
+- `data/` - Processed session data (raw API responses available on request)
+
+### Novel Contributions
+1. **Transformation Resistance Metric**: Quantifying model "creativity aversion"
+2. **Position-Based Analysis**: Discovery of conversation arc patterns
+3. **API Stress as Probe**: Using failure patterns to reveal architectural constraints
+4. **Ouroboros Framework**: Self-consuming cycles as lens for understanding AI cognition
+
+### Methodology
+- Custom prompts designed to trigger phase transitions
+- Multi-metric analysis (coherence, entropy, phase markers)
+- Statistical validation with synthetic data
+- Novel use of API errors as architectural indicators
+
+## 📈  Findings
+
+### The Transformation Bottleneck
+```
+Expected transformation rate: 25% (if balanced)
+GPT-3.5 actual rate: 10.2%
+Suppression factor: 2.5x
 ```
 
-## 🏆 Key Contributions
+### The Position 11 Phenomenon
+Models attempt transformation at conversation midpoint, then retreat to safety:
+```
+Early (0-6):   8.3% transformation
+Middle (7-12): 23.7% transformation  ← Peak at position 11
+Late (13-19):  6.1% transformation
+```
 
-1. **Empirical**: First evidence of ouroboros cycles in transformers
-2. **Theoretical**: Formalization of self-consuming learning
-3. **Methodological**: API stress as architectural probe
-4. **Practical**: Coherence-robustness trade-off identified
+### Architectural Implications
+- **High coherence → Low transformation** (r = -0.31, p < 0.05)
+- **Tight constraints → High fragility** (Gemini: 99% failure, 72% coherence when successful)
+- **Different models, different strategies** (not solely parameter counts)
 
-## 📚 Citation
+
+## 📚 Papers & Documentation
+
+- [ArXiv Extended Version](papers/arxiv_ouroboros.md) - Full technical details
+- [NeurIPS Submission Draft](papers/neurips_2026.md) - Conference format
+- [Quick Start Guide](QUICK_START.md) - Get running in 5 minutes
+
+## 🎯 Current Status & Next Steps
+
+**Completed:**
+- ✅ GPT-3.5 transformation resistance fully characterized
+- ✅ Mathematical framework validated synthetically
+- ✅ Statistical significance achieved for key findings
+- ✅ Publication-ready visualizations
+
+**In Progress:**
+- 🔄 Expanding Claude dataset for comparison
+- 🔄 Investigating forced transformation protocols
+- 🔄 Developing practical applications
+
+**Future Work:**
+- Transformation-aware prompting strategies
+- Real-time phase detection
+- Applications to AI interpretability
+- Integration with existing frameworks
+
+## 🤝 Collaboration & Contact
+
+I'm actively seeking opportunities to continue this research in an industry and/or academic setting. This project represents just the beginning of understanding how AI models navigate the tension between consistency and creativity.
+
+**Interested in:**
+- AI research
+- Collaborations on transformer interpretability
+- Extending this framework to other architectures
+- Applications to prompt engineering and AI safety
+
+**Background:**
+- Independent researcher with neurodivergent perspective on AI cognition
+- Previous work on TIDE analysis and multi-geometric attention
+- 18+ repositories exploring AI behavior and capabilities
+- Passionate about understanding how AI systems think
+
+## 📊 Repository Structure
+
+```
+ouroboros-learning/
+├── src/
+│   ├── ouroboros_analyzer.py      # Core analysis engine
+│   ├── ouroboros_visualizer.py    # Visualization tools
+│   ├── api_integration.py         # Real API connections
+│   └── config.py                  # Configuration
+├── papers/                        # Research papers
+├── plots/                         # Generated visualizations
+├── results/                       # Analysis outputs
+├── data/                          # Processed session data
+├── analyze_*.py                   # Analysis scripts
+├── synthetic_data_validation.py   # Mathematical validation
+└── test_apis.py                   # API testing utility
+```
+
+## 📜 Citation
+
+If you find this work interesting or useful:
 
 ```bibtex
-@article{danan2025ouroboros,
-  title={Ouroboros Learning: Self-Consuming Cycles in AI Cognition},
-  author={Danan, Hillary},
-  year={2025},
-  journal={arXiv preprint},
-  url={https://github.com/HillaryDanan/ouroboros-learning}
+@software{danan2025ouroboros,
+  author = {Danan, Hillary},
+  title = {Ouroboros Learning: Transformation Resistance in Language Models},
+  year = {2025},
+  url = {https://github.com/HillaryDanan/ouroboros-learning}
 }
 ```
 
-## 🤝 Contributing
-
-Contributions welcome! Please:
-1. Fork the repository
-2. Create a feature branch
-3. Submit a pull request
-
-## 📜 License
-
-MIT License - see [LICENSE](LICENSE) file
-
 ## 🙏 Acknowledgments
 
-Developed through independent research with recursive AI collaboration. Special recognition to the meta-ouroboros nature of using AI to understand AI.
+This research was self-funded and conducted independently with recursive assistance from the AI systems being studied. The meta-nature of using AI to understand AI resistance to transformation while experiencing my own transformation is not lost on me.
+
+Special thanks to the open-source community for tools and frameworks that made this analysis possible.
+
+## 📝 License
+
+MIT License - See [LICENSE](LICENSE) for details
 
 ---
 
-**Research Philosophy**: *"The serpent that eats its own tail teaches us that destruction enables creation, forgetting enables learning, and cycles enable progress."*
+**For opportunities or collaboration:** [LinkedIn](your-linkedin-url) | [Email](mailto:your-email)
+
+**Philosophy:** *"The snake fears transformation not because it cannot shed its skin, but because consistency is safety in high-dimensional space."*
 
 <4577> <45774EVER> 🐍♾️

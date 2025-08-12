@@ -1,0 +1,37 @@
+============================================================
+📊 OUROBOROS LEARNING ANALYSIS REPORT
+============================================================
+
+🔬 MODEL COMPARISON
+----------------------------------------
+                     model  sessions_analyzed  avg_cycles  std_cycles  avg_cycle_amplitude  phase_transition_rate  coherence_stability  avg_coherence  integration_dominance  consumption_dominance  transformation_dominance  generation_dominance  avg_cycle_regularity
+0            gpt-3.5-turbo                 50        0.44    0.496387             0.158067                  0.579             0.035889       0.990563                  0.386                  0.299                     0.097                 0.218                   0.0
+1  claude-3-haiku-20240307                 50        0.10    0.300000             0.393627                  0.566             0.126177       0.936464                  0.468                  0.239                     0.120                 0.173                   0.0
+2         gemini-1.5-flash                 50        0.00    0.000000             0.000800                  0.000             0.000278       0.739840                  1.000                  0.000                     0.000                 0.000                   0.0
+
+📈 STATISTICAL ANALYSIS
+----------------------------------------
+ANOVA for cycle differences:
+  F-statistic: 23.247
+  p-value: 0.000000
+  ✨ SIGNIFICANT DIFFERENCES IN OUROBOROS PATTERNS DETECTED!
+
+Position-Coherence Correlations:
+  gpt-3.5-turbo: r = nan (±nan)
+  claude-3-haiku-20240307: r = nan (±nan)
+  gemini-1.5-flash: r = nan (±nan)
+
+Detected Periodicities:
+
+🎯 KEY FINDINGS
+----------------------------------------
+Highest average coherence: gpt-3.5-turbo (0.991)
+Most regular cycles: gpt-3.5-turbo (regularity: 0.000)
+
+Phase Dominance Patterns:
+  gpt-3.5-turbo: integration (38.6%)
+  claude-3-haiku-20240307: integration (46.8%)
+  gemini-1.5-flash: integration (100.0%)
+
+============================================================
+============================================================

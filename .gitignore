@@ -16,9 +16,9 @@ __pycache__/
 .Python
 
 # Data and results
-data/
-results/
-plots/
+# data/
+# results/
+# plots/
 
 # OS
 .DS_Store
