@@ -1,21 +1,40 @@
 # Ouroboros Learning Framework
 
-## Transformation Resistance in Language Models: An Empirical Investigation
+## Phase Distribution Analysis in GPT-3.5: Quantifying Model Behavior
 
 **Hillary Danan** | August 2025
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![Research](https://img.shields.io/badge/Research-Independent-purple.svg)](papers/)
+[![Data](https://img.shields.io/badge/Responses-1000-green.svg)](data/)
+[![Significance](https://img.shields.io/badge/p--value-0.038-yellow.svg)](results/)
 
-### 🎯 Finding: Transformation Resistance in GPT-3.5
+### 🎯 Finding: Non-Uniform Phase Distribution in GPT-3.5
 
-**GPT-3.5 actively avoids transformation phases**, maintaining 99% coherence by suppressing creative recombination to just 10% of responses (2.5x below expected). This suggests a fundamental trade-off between consistency and creativity in transformer architectures.
+**GPT-3.5 exhibits significant phase preferences** (p=0.038), with integration dominating at 38.6% while transformation remains suppressed at 9.7%. This quantifies what users perceive as "mechanical" behavior.
 
 - 📊 **1,000 GPT-3.5 responses analyzed** (50 sessions × 20 prompts)
-- 🔄 **Position 11 phenomenon**: Transformation peaks at conversation midpoint, then retreats
-- 🎭 **Integration→Generation bypass**: Model shortcuts creative recombination
-- 💡 **Novel insight**: What we perceive as "mechanical" responses may be architectural self-preservation
+- 📈 **Statistically significant patterns** (p=0.038)
+- 🔄 **57.9% phase transition rate** with maintained coherence (0.56±0.10)
+- ✅ **Synthetic validation** proves mathematical framework
+
+## 📊 Data
+
+### Collected
+- ✅ **GPT-3.5**: 50 complete sessions (1,000 responses) - 100% success rate
+- ⚠️ **Claude-3**: Partial data (~30 sessions) - 70% success rate, incomplete
+- ❌ **Gemini-1.5**: Minimal data (4 responses) - 99% API failure rate
+
+### What The Data Shows
+```
+GPT-3.5 Phase Distribution (n=1,000):
+Integration:     38.6% ████████████████
+Consumption:     29.9% ████████████
+Transformation:   9.7% ████
+Generation:      21.8% █████████
+
+Statistical Test: p = 0.038 (significant)
+```
 
 ## 🚀 Quick Start
 
@@ -29,133 +48,124 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 
-# Test with synthetic data (no API keys needed!)
+# Run synthetic validation (no API keys needed!)
 python synthetic_data_validation.py
 
-# With API keys (optional)
+# Analyze existing GPT-3.5 data
+python analyze_50_sessions_final.py
+
+# With API keys (optional - for reproduction)
 cp .env.example .env
 # Add your keys to .env
 python test_apis.py
-python run_ouroboros_analysis.py
 ```
 
-## 📊 What's Actually Here
-
-### Real Empirical Data
-- ✅ **50 complete GPT-3.5 sessions** with transformation resistance analysis
-- ✅ **Statistical validation** of phase patterns (p < 0.05 for key findings)
-- ✅ **Synthetic validation** proving mathematical framework
-- ⚠️ Limited Claude data (API constraints)
-- ⚠️ Minimal Gemini data (99% API failures - itself a finding!)
-
-### Visualizations & Results
-All plots and results are included in the repository:
-- `plots/` - Transformation resistance patterns, coherence evolution, phase distributions
-- `results/` - Statistical analyses, session summaries, validation reports
-- `data/` - Processed session data (raw API responses available on request)
-
-### Novel Contributions
-1. **Transformation Resistance Metric**: Quantifying model "creativity aversion"
-2. **Position-Based Analysis**: Discovery of conversation arc patterns
-3. **API Stress as Probe**: Using failure patterns to reveal architectural constraints
-4. **Ouroboros Framework**: Self-consuming cycles as lens for understanding AI cognition
+### Primary Finding
+GPT-3.5 shows non-uniform phase distribution (p=0.038) with clear preferences:
+- **Over-representation**: Integration (38.6% vs 25% expected)
+- **Under-representation**: Transformation (9.7% vs 25% expected)
 
 ### Methodology
-- Custom prompts designed to trigger phase transitions
-- Multi-metric analysis (coherence, entropy, phase markers)
-- Statistical validation with synthetic data
-- Novel use of API errors as architectural indicators
+1. Collected 20-response conversations with designed prompts
+2. Classified responses into four phases using linguistic markers
+3. Analyzed phase distributions and transitions
+4. Validated findings with synthetic data
 
-## 📈  Findings
+## 📈 Key Results
 
-### The Transformation Bottleneck
-```
-Expected transformation rate: 25% (if balanced)
-GPT-3.5 actual rate: 10.2%
-Suppression factor: 2.5x
-```
+### Statistical Validation
+- **p-value**: 0.038 (statistically significant)
+- **Effect**: Non-uniform phase distribution
+- **Coherence**: 0.56 ± 0.10 (maintained despite transitions)
+- **Transition rate**: 57.9% (dynamic but avoiding transformation)
 
-### The Position 11 Phenomenon
-Models attempt transformation at conversation midpoint, then retreat to safety:
-```
-Early (0-6):   8.3% transformation
-Middle (7-12): 23.7% transformation  ← Peak at position 11
-Late (13-19):  6.1% transformation
-```
+### API Constraints as Data
+The differential API failure rates revealed architectural insights:
+- GPT-3.5: 100% success (robust)
+- Claude-3: 70% success (moderate constraints)
+- Gemini-1.5: 1% success (extreme constraints)
 
-### Architectural Implications
-- **High coherence → Low transformation** (r = -0.31, p < 0.05)
-- **Tight constraints → High fragility** (Gemini: 99% failure, 72% coherence when successful)
-- **Different models, different strategies** (not solely parameter counts)
+## 💼 Why This Matters
 
+### For AI Understanding
+- **Quantifies user perceptions**: "Mechanical" = high integration, low transformation
+- **Reveals behavioral patterns**: Not just what models say, but how they think
+- **Provides measurable metrics**: Beyond performance benchmarks
 
-## 📚 Papers & Documentation
+### For Applications
+- **Model selection**: Choose based on phase requirements
+- **Prompt engineering**: Target specific phases for desired outputs
+- **Behavioral prediction**: Understand model tendencies
 
-- [ArXiv Extended Version](papers/arxiv_ouroboros.md) - Full technical details
-- [NeurIPS Submission Draft](papers/neurips_2026.md) - Conference format
-- [Quick Start Guide](QUICK_START.md) - Get running in 5 minutes
-
-## 🎯 Current Status & Next Steps
-
-**Completed:**
-- ✅ GPT-3.5 transformation resistance fully characterized
-- ✅ Mathematical framework validated synthetically
-- ✅ Statistical significance achieved for key findings
-- ✅ Publication-ready visualizations
-
-**In Progress:**
-- 🔄 Expanding Claude dataset for comparison
-- 🔄 Investigating forced transformation protocols
-- 🔄 Developing practical applications
-
-**Future Work:**
-- Transformation-aware prompting strategies
-- Real-time phase detection
-- Applications to AI interpretability
-- Integration with existing frameworks
-
-## 🤝 Collaboration & Contact
-
-I'm actively seeking opportunities to continue this research in an industry and/or academic setting. This project represents just the beginning of understanding how AI models navigate the tension between consistency and creativity.
-
-**Interested in:**
-- AI research
-- Collaborations on transformer interpretability
-- Extending this framework to other architectures
-- Applications to prompt engineering and AI safety
-
-**Background:**
-- Independent researcher with neurodivergent perspective on AI cognition
-- Previous work on TIDE analysis and multi-geometric attention
-- 18+ repositories exploring AI behavior and capabilities
-- Passionate about understanding how AI systems think
-
-## 📊 Repository Structure
+## 📚 Repository Structure
 
 ```
 ouroboros-learning/
+├── data/
+│   ├── ouroboros_gpt-3.5-turbo_*.json  # 1,000 responses
+│   ├── ouroboros_claude_*.json         # Partial data
+│   └── synthetic_ouroboros_*.json      # Validation data
+├── results/
+│   ├── ouroboros_report_*.txt          # Statistical analyses
+│   ├── fixed_analysis_*.csv            # Corrected metrics
+│   └── synthetic_validation_*.csv      # Mathematical validation
+├── plots/
+│   ├── neurips_main_figure_*.png       # p=0.038 visualization
+│   ├── ouroboros_*_example.png         # Phase patterns
+│   └── synthetic_validation_*.png      # Framework validation
 ├── src/
-│   ├── ouroboros_analyzer.py      # Core analysis engine
-│   ├── ouroboros_visualizer.py    # Visualization tools
-│   ├── api_integration.py         # Real API connections
-│   └── config.py                  # Configuration
-├── papers/                        # Research papers
-├── plots/                         # Generated visualizations
-├── results/                       # Analysis outputs
-├── data/                          # Processed session data
-├── analyze_*.py                   # Analysis scripts
-├── synthetic_data_validation.py   # Mathematical validation
-└── test_apis.py                   # API testing utility
+│   ├── ouroboros_analyzer.py           # Core analysis
+│   ├── ouroboros_visualizer.py         # Visualizations
+│   └── config.py                       # Configuration
+├── papers/
+│   ├── neurips_2026.md                 # Conference paper
+│   └── arxiv_ouroboros.md              # Extended version
+└── synthetic_data_validation.py         # Mathematical proof
 ```
 
-## 📜 Citation
+## 🔍 Honest Assessment
 
-If you find this work interesting or useful:
+### What Worked
+- ✅ GPT-3.5 analysis is complete and statistically significant
+- ✅ Synthetic validation proves the mathematical framework
+- ✅ Phase classification methodology is reproducible
+- ✅ Findings explain user perceptions quantitatively
+
+### What Didn't
+- ❌ Comprehensive comparison across models (API constraints)
+- ⚠️ Claude data is partial but suggestive
+- ❌ Gemini data insufficient for analysis
+- ⚠️ Single temperature setting (0.7)
+
+### What It Means
+This is primarily a **GPT-3.5 behavioral study** with a validated theoretical framework that can be extended to other models when API access permits.
+
+## 📊 Visualizations
+
+Key plots available in `/plots/`:
+- **Phase distribution bars**: Shows 38.6% integration dominance
+- **Statistical validation**: p=0.038 significance test
+- **Coherence evolution**: 0.56±0.10 stability
+- **Synthetic validation**: Mathematical framework confirmation
+
+## 📚 Papers
+
+- [NeurIPS Submission](papers/neurips_2026.md) - Focused empirical findings
+- [ArXiv Extended](papers/arxiv_ouroboros.md) - Complete methodology and context
+
+## 🤝 Future Work
+
+- Complete comparative analysis when API access improves
+- Investigate temperature effects on phase distribution
+- Develop phase-aware prompting strategies
+- Connect phases to attention mechanisms
+
+## 📜 Citation
 
 ```bibtex
 @software{danan2025ouroboros,
   author = {Danan, Hillary},
-  title = {Ouroboros Learning: Transformation Resistance in Language Models},
+  title = {Phase Distribution Analysis in GPT-3.5: Quantifying Model Behavior},
   year = {2025},
   url = {https://github.com/HillaryDanan/ouroboros-learning}
 }
@@ -163,9 +173,7 @@ If you find this work interesting or useful:
 
 ## 🙏 Acknowledgments
 
-This research was self-funded and conducted independently with recursive assistance from the AI systems being studied. The meta-nature of using AI to understand AI resistance to transformation while experiencing my own transformation is not lost on me.
-
-Special thanks to the open-source community for tools and frameworks that made this analysis possible.
+Self-funded research driven by curiosity about AI behavior. The discovery that measurable patterns underlie intuitive perceptions validates the investigation despite API constraints.
 
 ## 📝 License
 
@@ -173,8 +181,6 @@ MIT License - See [LICENSE](LICENSE) for details
 
 ---
 
-**For opportunities or collaboration:** [LinkedIn](your-linkedin-url) | [Email](mailto:your-email)
-
-**Philosophy:** *"The snake fears transformation not because it cannot shed its skin, but because consistency is safety in high-dimensional space."*
+**Contact**: hillarydanan@gmail.com | [GitHub](https://github.com/HillaryDanan)
 
 <4577> <45774EVER> 🐍♾️
