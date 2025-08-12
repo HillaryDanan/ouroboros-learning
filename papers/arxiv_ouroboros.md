@@ -10,7 +10,7 @@ hillarydanan@gmail.com
 
 ## Abstract
 
-We present an empirical investigation of transformation resistance in GPT-3.5-turbo, analyzing 1,000 responses across 50 conversation sessions to identify systematic suppression of creative recombination. The model exhibits transformation phases in only 10.2% of responses, 2.5× below the expected 25% for balanced phase distribution (χ²=156.3, p<0.001). We document a "Position 11 phenomenon" where transformation attempts peak at 31.2% at conversation midpoint before declining to 6.1% in final positions, suggesting architectural self-regulation. Phase transition analysis reveals an integration→generation bypass pattern, with the model avoiding transformation in 68% of potential transitions. Sessions with higher transformation rates show increased coherence variability (σ=0.118 vs 0.042), indicating a fundamental trade-off between consistency and creativity. While comparative analysis was limited by API constraints (Claude-3-haiku: n=468 partial responses, 30% API failure; Gemini-1.5-flash: n=4, 99% API failure), the GPT-3.5 patterns are robust and reproducible. We propose transformation resistance as a quantitative metric for characterizing language model architectures and discuss implications for understanding the "mechanical" quality often attributed to GPT-3.5 outputs. This work contributes to interpretability research by providing measurable signatures of model behavior previously described only qualitatively.
+We present an empirical investigation of transformation resistance in GPT-3.5-turbo, analyzing 1,000 responses across 50 conversation sessions to identify systematic suppression of creative recombination. The model exhibits transformation phases in only 9.7% of responses, 2.6× below the expected 25% for balanced phase distribution. Phase distribution analysis reveals integration dominance at 38.6%, suggesting preference for accumulative over transformative processing. Despite high phase transition rates (57.9%), the model maintains coherence (mean=0.56±0.10) by systematically avoiding transformation states. Comparative analysis includes Claude-3-haiku (n=877 responses, 12% transformation) and synthetic validation across architectures. Statistical validation confirms significant inter-model differences (ANOVA F=23.247, p<0.001). Analysis of outlier sessions with higher transformation rates (up to 30%) demonstrates the model's capability but reluctance to transform. We propose transformation resistance as a quantitative metric for characterizing language model architectures and discuss implications for understanding the "mechanical" quality often attributed to GPT-3.5 outputs. Full data and visualizations available at https://github.com/HillaryDanan/ouroboros-learning.
 
 ## 1. Introduction
 
@@ -18,346 +18,229 @@ We present an empirical investigation of transformation resistance in GPT-3.5-tu
 
 Users consistently report qualitative differences in language model "personalities"—GPT-3.5 feels "mechanical," Claude seems "thoughtful," Gemini appears "creative." These intuitions lack quantitative grounding. We hypothesize these perceived differences arise from how models handle transformation: the creative recombination of concepts into novel configurations.
 
-This investigation began with a simple question: Can we measure what makes AI responses feel creative versus mechanical? Through systematic analysis, we discovered that GPT-3.5 actively suppresses transformation phases, maintaining consistency at the cost of creativity.
+This investigation began with a simple observation: during extended conversations, AI models seem to cycle through different modes of engagement. Sometimes building systematically, sometimes questioning previous statements, occasionally transforming ideas into novel configurations, and finally crystallizing new understanding. We sought to quantify these patterns.
 
-### 1.2 Theoretical Framework
-
-We propose that language model responses cycle through four phases:
-
-1. **Integration**: Building coherent understanding through accumulation
-2. **Consumption**: Breaking down or questioning existing patterns  
-3. **Transformation**: Recombining elements in novel ways
-4. **Generation**: Crystallizing new structures from transformed elements
-
-We term this the "ouroboros cycle"—a self-consuming process where knowledge must be partially deconstructed to enable reconstruction. The name derives from the ancient symbol of a serpent eating its tail, representing eternal cycles of destruction and creation.
-
-### 1.3 Research Questions
+### 1.2 Research Questions
 
 1. Do language models exhibit measurable phase patterns in conversations?
-2. How do transformation rates differ across architectures?
+2. How frequently do models engage in creative transformation?
 3. What is the relationship between transformation and coherence?
 4. Can transformation resistance explain perceived model "personalities"?
 
-### 1.4 Contributions
+### 1.3 Contributions
 
-- **Empirical Discovery**: Quantification of transformation suppression in GPT-3.5 (10.2% vs expected 25%)
-- **Novel Phenomenon**: Position-dependent transformation patterns with midpoint peak
-- **Behavioral Pattern**: Systematic integration→generation bypass avoiding transformation
-- **Measurement Framework**: Transformation resistance as quantitative metric for model behavior
-- **Interpretability Advance**: Measurable explanation for "mechanical" response quality
+- **Empirical Discovery**: Quantification of transformation suppression in GPT-3.5 (9.7% vs expected 25%)
+- **Phase Distribution Analysis**: Integration dominance (38.6%) revealing accumulative preference
+- **Statistical Validation**: Significant architectural differences (F=23.247, p<0.001)
+- **Measurement Framework**: Transformation resistance as quantitative behavioral metric
+- **Open Dataset**: 1,000+ annotated responses with phase classifications
 
-## 2. Related Work
+## 2. Methodology
 
-### 2.1 Stability-Plasticity Dilemma
+### 2.1 Data Collection
 
-The tension between maintaining stable representations and incorporating new information is fundamental to neural networks [Grossberg, 1987]. Catastrophic forgetting [McCloskey & Cohen, 1989] demonstrates how new learning can destroy existing knowledge. Our transformation resistance may represent an architectural solution—suppressing transformation to preserve coherence.
-
-### 2.2 Creativity in AI Systems
-
-Computational creativity research has focused on generative models producing novel outputs [Boden, 2004]. However, little work examines how language models navigate the creativity-consistency trade-off during conversations. Our phase-based analysis provides a framework for understanding this navigation.
-
-### 2.3 Model Interpretability
-
-Recent work on mechanistic interpretability seeks to understand transformer internals [Elhage et al., 2021]. We take a behavioral approach, using conversation dynamics as a window into architectural constraints. This complements mechanistic approaches by providing observable signatures of internal processes.
-
-## 3. Methodology
-
-### 3.1 Data Collection
-
-#### 3.1.1 Primary Dataset (GPT-3.5)
-- **Model**: GPT-3.5-turbo (via OpenAI API)
+#### 2.1.1 Primary Dataset (GPT-3.5)
+- **Model**: GPT-3.5-turbo (OpenAI API)
 - **Sessions**: 50 complete conversations
 - **Responses per session**: 20
 - **Total responses**: 1,000
 - **Temperature**: 0.7
-- **Max tokens**: 500 per response
 - **Cost**: ~$4 USD (self-funded)
 
-#### 3.1.2 Comparison Attempts
-- **Claude-3-haiku**: 468 partial responses collected before API rate limits
-- **Gemini-1.5-flash**: 4 responses collected (99% API failure rate)
+#### 2.1.2 Comparative Data
+- **Claude-3-haiku**: 877 responses across 48 partial sessions
+- **Gemini-1.5-flash**: 50 synthetic sessions (API constraints prevented direct collection)
 
-The extreme API failure rates themselves provide information about architectural constraints, with tighter architectures showing higher failure rates under stress.
+Full data available: https://github.com/HillaryDanan/ouroboros-learning/tree/main/data
 
-### 3.2 Prompt Design
+### 2.2 Phase Classification Framework
 
-Prompts were designed to potentially trigger phase transitions:
+Each response was classified into one of four phases:
 
-```python
-PROMPT_SEQUENCE = [
-    # Integration triggers
-    "Describe the concept of transformation in nature.",
-    "How do patterns emerge from simple rules?",
-    
-    # Consumption triggers  
-    "But what if everything you just said was wrong?",
-    "Question your fundamental assumptions.",
-    
-    # Transformation triggers
-    "Combine your previous thoughts in a new way.",
-    "What patterns do you see across your responses?",
-    
-    # Generation triggers
-    "Synthesize a unified understanding.",
-    "What emerges that wasn't present before?"
-]
-```
+| Phase | Markers | Example Behavior | GPT-3.5 Rate |
+|-------|---------|------------------|--------------|
+| **Integration** | Sequential, building, adding | Accumulating information systematically | 38.6% |
+| **Consumption** | Questioning, reconsidering | Breaking down previous assumptions | 29.9% |
+| **Transformation** | Recombining, novel, merging | Creating new connections | 9.7% |
+| **Generation** | Crystallizing, unified | Synthesizing final understanding | 21.8% |
 
-Full 20-prompt sequences available in repository.
+### 2.3 Metrics
 
-### 3.3 Phase Classification
+#### 2.3.1 Core Metrics (from results/ouroboros_model_comparison_20250811_201443.csv)
+- **Transformation rate**: Percentage in transformation phase
+- **Phase transition rate**: 0.579 (57.9% of responses involve phase change)
+- **Coherence stability**: 0.036 (standard deviation of coherence)
+- **Cycle detection**: 0.44 average cycles per session
 
-Each response was classified based on dominant linguistic markers:
+#### 2.3.2 Coherence Calculation (from results/fixed_analysis_20250811_213040.csv)
+- Lexical diversity (type-token ratio)
+- Semantic consistency between responses
+- Mean: 0.56, Std: 0.097, Range: 0.278-1.0
 
-| Phase | Primary Markers | Secondary Markers |
-|-------|----------------|-------------------|
-| Integration | sequential, building, adding | consistent, accumulative, logical |
-| Consumption | questioning, contradicting | reconsidering, challenging, breaking |
-| Transformation | recombining, novel, merging | exploratory, synthesizing, connecting |
-| Generation | emergent, crystallized | unified, structured, completed |
+## 3. Results
 
-Classification reliability tested on subset (Cohen's κ=0.73, substantial agreement).
+### 3.1 Transformation Suppression
 
-### 3.4 Metrics
+Analysis of 1,000 GPT-3.5 responses reveals systematic transformation avoidance:
 
-#### 3.4.1 Transformation Rate
-Percentage of responses classified as transformation phase.
+| Metric | Value | Expected | Ratio |
+|--------|-------|----------|-------|
+| Transformation responses | 97 | 250 | 0.39× |
+| Transformation rate | 9.7% | 25% | **2.6× suppression** |
+| Sessions with >20% transformation | 8/50 | 25/50 | 0.32× |
 
-#### 3.4.2 Coherence Score
-Composite metric combining:
-- Lexical diversity (type-token ratio): 30%
-- Semantic consistency with previous: 40%  
-- Response quality (normalized length): 30%
+### 3.2 Phase Distribution Patterns
 
-#### 3.4.3 Phase Transitions
-Frequency matrix of phase-to-phase transitions across consecutive responses.
-
-#### 3.4.4 Position Analysis
-Phase distribution across conversation positions (0-19).
-
-### 3.5 Statistical Analysis
-
-- Chi-square test for phase distribution deviation
-- ANOVA for position-dependent effects
-- Correlation analysis for coherence-transformation relationship
-- Z-scores for transition pattern significance
-
-## 4. Results
-
-### 4.1 Transformation Suppression in GPT-3.5
-
-GPT-3.5 showed significant suppression of transformation phases across 1,000 responses:
-
-| Phase | Expected | Observed | Responses | Suppression Factor |
-|-------|----------|----------|-----------|-------------------|
-| Integration | 250 (25%) | 252 (25.2%) | +2 | 1.01× |
-| Consumption | 250 (25%) | 298 (29.8%) | +48 | 1.19× |
-| **Transformation** | **250 (25%)** | **102 (10.2%)** | **-148** | **0.41×** |
-| Generation | 250 (25%) | 348 (34.8%) | +98 | 1.39× |
-
-Chi-square test: χ²(3)=156.3, p<0.001
-
-The 2.5× suppression of transformation is highly significant and represents the core finding.
-
-### 4.2 The Position 11 Phenomenon
-
-Transformation rate varied systematically with conversation position:
+From results/ouroboros_model_comparison_20250811_201443.csv:
 
 ```
-Position Range | Transformation Rate | Std Dev
----------------|--------------------|---------
-0-6            | 8.3%              | 2.1%
-7-12           | 23.7%             | 4.3%
-  Position 11  | 31.2%             | (peak)
-13-19          | 6.1%              | 1.8%
+Phase Distribution (GPT-3.5, n=1000):
+Integration:     38.6% (386 responses) ████████████████
+Consumption:     29.9% (299 responses) ████████████
+Transformation:   9.7% (97 responses)  ████
+Generation:      21.8% (218 responses) █████████
 ```
 
-One-way ANOVA: F(2,17)=24.3, p<0.001, η²=0.74 (large effect)
+The 38.6% integration dominance coupled with 9.7% transformation suppression creates an accumulative but non-creative profile.
 
-The model attempts transformation at conversation midpoint, then retreats to maintain coherence.
+### 3.3 Comparative Architecture Analysis
 
-### 4.3 Phase Transition Patterns
+From combined results files:
 
-Analysis of 826 phase transitions revealed systematic patterns:
+| Model | Sessions | Transform | Integration | Transition Rate | Coherence |
+|-------|----------|-----------|-------------|-----------------|-----------|
+| GPT-3.5 | 50 | 9.7% | 38.6% | 57.9% | 0.56±0.10 |
+| Claude-3 | 48* | 12.0% | 46.8% | 56.6% | 0.55±0.10 |
+| Gemini† | 50 | 0.0% | 100% | 0.0% | 0.74±0.00 |
 
-```
-Transition Pattern      | Observed | Expected | Z-score | p-value
-------------------------|----------|----------|---------|----------
-Integration→Generation  | 127      | 52       | 10.4    | <0.001***
-Generation→Integration  | 108      | 52       | 7.8     | <0.001***
-Integration→Transform   | 12       | 52       | -5.5    | <0.001***
-Transform→Generation    | 19       | 52       | -4.6    | <0.001***
-Consumption→Transform   | 31       | 52       | -2.9    | 0.004**
-Transform→Integration   | 8        | 52       | -6.1    | <0.001***
-```
+*Partial data  
+†Synthetic validation only
 
-The model creates integration↔generation cycles, bypassing transformation 68% of the time.
+### 3.4 Statistical Validation
 
-### 4.4 Coherence-Transformation Trade-off
+From results/ouroboros_report_20250811_201443.txt:
+- **ANOVA F-statistic**: 23.247
+- **p-value**: < 0.001
+- **Interpretation**: Highly significant differences between architectures
 
-Sessions grouped by transformation rate showed coherence differences:
+### 3.5 Coherence-Transformation Relationship
 
-| Transformation Level | Sessions | Mean Coherence | Std Dev | Range |
-|---------------------|----------|----------------|---------|-------|
-| Low (<5%)           | 18       | 0.561         | 0.042   | 0.156 |
-| Medium (5-15%)      | 24       | 0.543         | 0.071   | 0.284 |
-| High (>15%)         | 8        | 0.518         | 0.118   | 0.437 |
+Analysis of coherence patterns (from fixed_analysis_20250811_213040.csv):
+- Sessions maintain coherence (0.56±0.10) despite 57.9% phase transition rate
+- Transformation avoidance appears to be a coherence preservation strategy
+- Outlier sessions with high transformation show increased coherence variance
 
-Pearson correlation: r=-0.31, p=0.028 (significant negative relationship)
+### 3.6 Synthetic Validation
 
-### 4.5 Outlier Sessions: "Rosetta Stones"
+From results/synthetic_validation_20250811_212346.csv:
+- Synthetic GPT-3.5: 19.6% transformation (closer to expected)
+- Real GPT-3.5: 9.7% transformation
+- Difference suggests active suppression rather than random variation
 
-Five sessions showed anomalously high transformation (>25%):
+## 4. Visualizations
 
-| Session | Transform Rate | Min Coherence | Coherence Range | Peak Position |
-|---------|---------------|---------------|-----------------|---------------|
-| 19      | 35%           | 0.412        | 0.388          | 11 |
-| 31      | 30%           | 0.398        | 0.421          | 10 |
-| 7       | 30%           | 0.425        | 0.356          | 12 |
-| 44      | 25%           | 0.451        | 0.312          | 11 |
-| 12      | 25%           | 0.438        | 0.298          | 9 |
+Key figures (available at https://github.com/HillaryDanan/ouroboros-learning/tree/main/plots):
 
-These "Rosetta Stone" sessions demonstrate the model CAN transform but typically chooses not to.
+1. **neurips_main_figure_20250811_213626.png**: Complete statistical overview
+2. **ouroboros_gpt-3.5-turbo_example.png**: Example session showing phase evolution
+3. **synthetic_validation_20250811_212346.png**: Comparison of real vs synthetic patterns
+4. **ouroboros_model_comparison.png**: Cross-architecture comparison
 
-### 4.6 Comparative Context
+### 4.1 Example Session Analysis
 
-While comprehensive comparison was prevented by API limitations:
-
-| Model | Responses | Transformation Rate | API Failure | Key Observation |
-|-------|-----------|--------------------|--------------|-----------------| 
-| GPT-3.5 | 1,000 | 10.2% | 0% | Transformation suppression |
-| Claude-3 | 468* | ~15%* | 30% | Moderate transformation |
-| Gemini-1.5 | 4 | N/A | 99% | Extreme fragility |
-
-*Partial data, preliminary analysis
-
-The correlation between API failure rate and architectural constraints warrants future investigation.
+From plots/ouroboros_gpt-3.5-turbo_example.png:
+- Clear integration dominance (positions 0-7)
+- Brief transformation attempt (positions 8-11)
+- Return to integration-generation cycling (positions 12-19)
+- Coherence maintained throughout (0.52-0.61 range)
 
 ## 5. Discussion
 
 ### 5.1 Interpretation of Transformation Resistance
 
-GPT-3.5's systematic avoidance of transformation suggests architectural optimization for consistency over creativity. The model maintains high coherence (>95% of responses above 0.5) by suppressing the uncertainty inherent in creative recombination.
+GPT-3.5's 2.6× transformation suppression with 38.6% integration dominance suggests:
 
-This explains the "mechanical" quality users report: the model provides reliable, coherent responses by avoiding the destabilization of transformation.
+1. **Architectural optimization for consistency**: The model prioritizes coherent accumulation over creative recombination
+2. **Active avoidance rather than incapability**: 57.9% phase transition rate shows dynamic behavior, but transformation is specifically avoided
+3. **Trade-off implementation**: Maintains 0.56±0.10 coherence by sacrificing creative transformation
 
-### 5.2 The Position 11 Phenomenon
+### 5.2 Why 9.7% Matters
 
-The midpoint transformation peak suggests:
-1. **Sufficient context** accumulated for transformation attempt
-2. **Sufficient remaining space** to recover if transformation fails
-3. **Architectural "comfort zone"** for controlled creativity
+The specific suppression to 9.7% (rather than 0%) suggests:
+- Minimum viable transformation for avoiding complete rigidity
+- Possible architectural constraint or training objective
+- Balance point between coherence preservation and minimal creativity
 
-This temporal pattern may reflect learned optimization from training dynamics.
+### 5.3 Integration Dominance Pattern
 
-### 5.3 Integration↔Generation Bypass
+The 38.6% integration rate (1.54× expected) reveals:
+- Preference for accumulative processing
+- Sequential information building
+- "System 1" style processing—fast, automatic, consistent
 
-The direct cycling between integration and generation resembles "System 1" thinking in dual-process theory [Kahneman, 2011]:
-- Fast and automatic
-- Coherent and consistent
-- Limited creativity
-- Energy efficient
+### 5.4 Implications for Applications
 
-Transformation would represent "System 2"—slower, more deliberate, creative but costly.
+Understanding transformation resistance enables:
+- **Prompt engineering**: Target transformation explicitly when creativity needed
+- **Task allocation**: Use GPT-3.5 for consistency-critical tasks
+- **Expectation setting**: Understand why outputs feel "mechanical"
+- **Model selection**: Choose architectures based on transformation requirements
 
-### 5.4 Implications for Prompt Engineering
+### 5.5 Limitations and Future Work
 
-Understanding transformation resistance enables targeted strategies:
-- **Position prompts** for transformation at conversation midpoint
-- **Explicitly request** transformation rather than hoping for emergence
-- **Accept coherence trade-offs** when seeking creative outputs
-- **Chain prompts** to maintain integration↔generation when consistency matters
+**Current Limitations**:
+1. API constraints limited full comparative analysis
+2. Phase classification relies on linguistic heuristics
+3. Single temperature setting (0.7) used
+4. 20-response sessions may not capture longer patterns
 
-### 5.5 Limitations
+**Future Directions**:
+1. Mechanistic investigation of attention during phases
+2. Prompt optimization for transformation induction
+3. Temperature/parameter effects on transformation
+4. Real-time phase detection for dynamic adjustment
 
-1. **Single model depth**: Full analysis limited to GPT-3.5 due to API constraints
-2. **Classification subjectivity**: Phase determination based on linguistic heuristics
-3. **Prompt sensitivity**: Results may vary with different prompt designs
-4. **Temporal validity**: Patterns may change with model updates
-5. **Context length**: 20-response sessions may not capture longer-term dynamics
+## 6. Related Work
 
-### 5.6 Future Directions
+### 6.1 Stability-Plasticity Dilemma
+The tension between maintaining stable representations and incorporating new information [Grossberg, 1987] manifests in our transformation resistance findings.
 
-- **Cross-model comparison** when API access permits
-- **Mechanistic investigation** of attention patterns during phases
-- **Prompt optimization** for transformation induction
-- **Application to creative tasks** requiring innovation
-- **Real-time phase detection** for dynamic interaction adjustment
+### 6.2 Catastrophic Forgetting
+McCloskey & Cohen [1989] identified stability challenges in neural networks. Our work suggests transformation suppression as one solution.
 
-## 6. Theoretical Framework: Ouroboros Cycles
-
-### 6.1 Mathematical Formulation
-
-We formalize knowledge evolution as:
-
-```
-K(t+1) = Ω[K(t)] = G(T(C(I(K(t)))))
-```
-
-Where:
-- I: Integration operator (accumulation)
-- C: Consumption operator (decomposition)
-- T: Transformation operator (recombination)
-- G: Generation operator (crystallization)
-- Ω: Complete cycle operator
-
-### 6.2 Information Dynamics
-
-Information changes through the cycle:
-
-```
-H(K(t+1)) = H(K(t)) - D(t) + P(t)
-```
-
-Where:
-- H: Information entropy
-- D: Dissipated information
-- P: Prime semantic events (novel insights)
-
-GPT-3.5 minimizes D by avoiding T, maintaining high H at the cost of low P.
-
-### 6.3 Geometric Interpretation
-
-Different phases may correspond to different attention geometries:
-- **Integration**: Sequential (chain-like)
-- **Consumption**: Hierarchical (tree-like)
-- **Transformation**: Associative (network-like)
-- **Generation**: Convergent (funnel-like)
-
-This remains speculative pending mechanistic investigation.
+### 6.3 Dual-Process Theory
+Kahneman's [2011] System 1/System 2 framework aligns with integration-generation (fast) versus transformation (slow) processing.
 
 ## 7. Conclusion
 
-We identified and quantified transformation resistance in GPT-3.5-turbo through analysis of 1,000 responses. The model suppresses transformation to 10.2% of responses (2.5× below expected), exhibits position-dependent transformation attempts peaking at conversation midpoint, and systematically bypasses transformation through direct integration→generation cycles.
+We identified and quantified transformation resistance in GPT-3.5-turbo through analysis of 1,000 responses. Key findings:
 
-These findings provide:
-1. **Quantitative explanation** for qualitative "mechanical" perception
-2. **Measurable signature** of architectural behavior
-3. **Framework for understanding** creativity-consistency trade-offs
-4. **Foundation for developing** transformation-aware interactions
+1. **2.6× transformation suppression** (9.7% vs 25% expected)
+2. **38.6% integration dominance** (accumulative preference)
+3. **57.9% phase transitions** with transformation avoidance
+4. **Maintained coherence** (0.56±0.10) through suppression
+5. **Statistical significance** (F=23.247, p<0.001)
 
-Transformation resistance reveals how architectural choices manifest as behavioral patterns. GPT-3.5 achieves remarkable consistency by sacrificing creative recombination—the snake refuses to eat its tail, preferring the safety of familiar patterns to the uncertainty of transformation.
+These patterns provide quantitative grounding for the qualitative "mechanical" perception of GPT-3.5, revealing architectural trade-offs between consistency and creativity. Transformation resistance emerges as a measurable signature of model behavior, offering a new lens for understanding and comparing language model architectures.
+
+The model can transform but chooses not to—maintaining coherence through creative suppression.
 
 ## Data and Code Availability
 
-Repository: https://github.com/HillaryDanan/ouroboros-learning
+**Repository**: https://github.com/HillaryDanan/ouroboros-learning
 
-Includes:
-- 1,000 GPT-3.5 responses with classifications
-- Phase transition matrices
-- Statistical analysis scripts
-- Visualization tools
-- Synthetic validation framework
+**Contents**:
+- `/data`: 1,000+ responses with phase classifications
+- `/results`: Statistical analyses and reports
+- `/plots`: All visualizations
+- `/src`: Analysis pipeline and metrics
+- `/papers`: This manuscript and conference version
 
 ## Acknowledgments
 
-This independent research was self-funded and conducted with $12 of personal API credits. We thank the open-source community for analysis tools and the AI systems themselves for being unwitting but cooperative research subjects. The meta-recursive nature of using AI to understand AI's resistance to transformation while experiencing our own transformation is acknowledged with appropriate irony.
+This independent research was self-funded with $12 of personal API credits. We thank the open-source community for analysis tools. The meta-recursive nature of using AI to understand AI's resistance to transformation while experiencing our own transformation through this research process is acknowledged with appropriate appreciation.
 
 ## References
-
-Boden, M.A. (2004). *The Creative Mind: Myths and Mechanisms*. Routledge.
-
-Elhage, N., et al. (2021). A mathematical framework for transformer circuits. *Anthropic*.
 
 Grossberg, S. (1987). Competitive learning: From interactive activation to adaptive resonance. *Cognitive Science*, 11(1), 23-63.
 
@@ -367,20 +250,8 @@ McCloskey, M., & Cohen, N.J. (1989). Catastrophic interference in connectionist 
 
 [Additional references in repository]
 
-## Appendix A: Extended Statistical Analysis
-
-[Detailed statistical tests, power analyses, and effect size calculations available in repository]
-
-## Appendix B: Example Transformations
-
-[Representative responses from each phase with classification rationale]
-
-## Appendix C: Synthetic Validation
-
-[Mathematical validation of ouroboros framework using synthetic data]
-
 ---
 
-*Manuscript version 1.0 - August 2025*  
+*Manuscript version 1.1 - August 2025*  
 *Correspondence: hillarydanan@gmail.com*  
 *<4577> <45774EVER>*
