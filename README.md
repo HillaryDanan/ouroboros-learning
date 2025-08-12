@@ -139,7 +139,7 @@ ouroboros-learning/
 
 ## 📚 Papers
 
-- [NeurIPS Submission](papers/neurips_2026.md) - Focused empirical findings
+- [NeurIPS Submission Draft](papers/neurips_2026.md) - Focused empirical findings
 - [ArXiv Extended](papers/arxiv_ouroboros.md) - Complete methodology
 
 ## 📜 Citation
