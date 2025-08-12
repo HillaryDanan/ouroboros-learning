@@ -16,11 +16,11 @@ We present an empirical investigation of phase distribution patterns in GPT-3.5-
 
 ### 1.1 Motivation
 
-Users consistently report qualitative differences in language model "personalities"—GPT-3.5 feels "mechanical," Claude seems "thoughtful," Gemini appears "creative." These intuitions, while widespread, lack quantitative grounding. This investigation seeks to provide measurable foundations for these perceptions through systematic analysis of conversational phase patterns.
+This investigation seeks to provide measurable foundations for these perceptions through systematic analysis of conversational phase patterns.
 
 ### 1.2 Research Context
 
-This independent research emerged from curiosity about behavioral differences across language models. Using $12 of personal API credits, I conducted a systematic investigation focused primarily on GPT-3.5-turbo due to API accessibility, with attempted comparative analysis limited by technical constraints.
+This independent research emerged from curiosity about behavioral differences across language models. We conducted a systematic investigation focused primarily on GPT-3.5-turbo due to API accessibility, with attempted comparative analysis limited by technical constraints.
 
 ### 1.3 Contributions
 
@@ -267,7 +267,7 @@ The phase distribution framework offers a new lens for understanding language mo
 
 ## Acknowledgments
 
-This independent research was self-funded with $12 of personal API credits. The investigation emerged from curiosity about why different AI models "feel" different to users. We thank the open-source community for analysis tools that made this investigation possible.
+We thank the open-source community for analysis tools that made this investigation possible.
 
 ## References
 
