@@ -11,7 +11,7 @@
 
 ### 🎯 Finding: Non-Uniform Phase Distribution in GPT-3.5
 
-**GPT-3.5 exhibits significant phase preferences** (p=0.038), with integration dominating at 38.6% while transformation remains suppressed at 9.7%. This quantifies what users perceive as "mechanical" behavior.
+**GPT-3.5 exhibits significant phase preferences** (p=0.038), with integration dominating at 38.6% while transformation remains at 9.7%. This quantifies distinct behavioral patterns in language model processing.
 
 - 📊 **1,000 GPT-3.5 responses analyzed** (50 sessions × 20 prompts)
 - 📈 **Statistically significant patterns** (p=0.038)
@@ -88,8 +88,8 @@ The differential API failure rates revealed architectural insights:
 ## 💼 Why This Matters
 
 ### For AI Understanding
-- **Quantifies user perceptions**: "Mechanical" = high integration, low transformation
-- **Reveals behavioral patterns**: Not just what models say, but how they think
+- **Quantifies behavioral patterns**: Provides measurable metrics for model behavior
+- **Reveals processing tendencies**: Not just what models say, but how they process
 - **Provides measurable metrics**: Beyond performance benchmarks
 
 ### For Applications
@@ -97,39 +97,13 @@ The differential API failure rates revealed architectural insights:
 - **Prompt engineering**: Target specific phases for desired outputs
 - **Behavioral prediction**: Understand model tendencies
 
-## 📚 Repository Structure
-
-```
-ouroboros-learning/
-├── data/
-│   ├── ouroboros_gpt-3.5-turbo_*.json  # 1,000 responses
-│   ├── ouroboros_claude_*.json         # Partial data
-│   └── synthetic_ouroboros_*.json      # Validation data
-├── results/
-│   ├── ouroboros_report_*.txt          # Statistical analyses
-│   ├── fixed_analysis_*.csv            # Corrected metrics
-│   └── synthetic_validation_*.csv      # Mathematical validation
-├── plots/
-│   ├── neurips_main_figure_*.png       # p=0.038 visualization
-│   ├── ouroboros_*_example.png         # Phase patterns
-│   └── synthetic_validation_*.png      # Framework validation
-├── src/
-│   ├── ouroboros_analyzer.py           # Core analysis
-│   ├── ouroboros_visualizer.py         # Visualizations
-│   └── config.py                       # Configuration
-├── papers/
-│   ├── neurips_2026.md                 # Conference paper
-│   └── arxiv_ouroboros.md              # Extended version
-└── synthetic_data_validation.py         # Mathematical proof
-```
-
 ## 🔍 Honest Assessment
 
 ### What Worked
 - ✅ GPT-3.5 analysis is complete and statistically significant
 - ✅ Synthetic validation proves the mathematical framework
 - ✅ Phase classification methodology is reproducible
-- ✅ Findings explain user perceptions quantitatively
+- ✅ Findings provide quantitative behavioral metrics
 
 ### What Didn't
 - ❌ Comprehensive comparison across models (API constraints)
@@ -173,7 +147,7 @@ Key plots available in `/plots/`:
 
 ## 🙏 Acknowledgments
 
-Self-funded research driven by curiosity about AI behavior. The discovery that measurable patterns underlie intuitive perceptions validates the investigation despite API constraints.
+Self-funded research driven by curiosity about AI behavior. The discovery that measurable patterns underlie model processing validates the investigation despite API constraints.
 
 ## 📝 License
 
