@@ -7,7 +7,7 @@ Contact: hillarydanan@gmail.com
 
 ## Abstract
 
-We present an empirical investigation of phase distribution patterns in GPT-3.5-turbo, analyzing 1,000 responses across 50 conversation sessions using established semantic similarity metrics. The model exhibits highly significant non-uniform phase distribution (χ² = 120.24, p < 0.0001) with integration at 38.6%, consumption at 29.9%, transformation at 9.7%, and generation at 21.8%. Using Jaccard similarity for semantic coherence measurement, we find the model maintains coherence (0.461 ± 0.082) despite high phase transition rates (57.9%). While comprehensive comparative analysis was prevented by API constraints (Claude-3-haiku: 30% failure rate; Gemini-1.5-flash: 99% failure rate), the GPT-3.5 patterns are robust and reproducible. Synthetic validation confirms the mathematical framework's validity. This work provides a quantitative framework for characterizing language model behavioral patterns and is accompanied by complete data and code for reproducibility.
+We present an empirical investigation of phase distribution patterns in GPT-3.5-turbo, analyzing 1,000 responses across 50 conversation sessions using established semantic similarity metrics. The model exhibits highly significant non-uniform phase distribution (chi-squared = 120.24, p < 0.0001) with integration at 38.6%, consumption at 29.9%, transformation at 9.7%, and generation at 21.8%. Using Jaccard similarity for semantic coherence measurement, we find the model maintains coherence (0.461 +/- 0.082) despite high phase transition rates (57.9%). While comprehensive comparative analysis was prevented by API constraints (Claude-3-haiku: 30% failure rate; Gemini-1.5-flash: 99% failure rate), the GPT-3.5 patterns are robust and reproducible. Synthetic validation confirms the mathematical framework's validity. This work provides a quantitative framework for characterizing language model behavioral patterns and is accompanied by complete data and code for reproducibility.
 
 ## 1. Introduction
 
@@ -91,8 +91,8 @@ def calculate_semantic_coherence(response, previous_responses):
     
     for prev_response in previous_responses[-3:]:
         prev_words = set(prev_response.lower().split())
-        intersection = len(current_words & prev_words)
-        union = len(current_words | prev_words)
+        intersection = len(current_words.intersection(prev_words))
+        union = len(current_words.union(prev_words))
         if union > 0:
             consistency_scores.append(intersection / union)
     
@@ -125,14 +125,14 @@ We employ the following statistical methods:
 
 Analysis of 1,000 responses reveals highly significant non-uniform distribution:
 
-| Phase | Count | Percentage | Expected (Uniform) | χ² Contribution |
-|-------|-------|------------|-------------------|-----------------|
+| Phase | Count | Percentage | Expected (Uniform) | Chi-squared Contribution |
+|-------|-------|------------|-------------------|-------------------------|
 | Integration | 386 | 38.6% | 250 | 73.74 |
 | Consumption | 299 | 29.9% | 250 | 9.60 |
 | Transformation | 97 | 9.7% | 250 | 93.48 |
 | Generation | 218 | 21.8% | 250 | 4.10 |
 
-**Statistical Test**: χ² = 120.24, df = 3, p < 0.0001
+**Statistical Test**: Chi-squared = 120.24, df = 3, p < 0.0001
 
 The null hypothesis of uniform distribution is strongly rejected, confirming H1.
 
@@ -151,8 +151,8 @@ Semantic coherence metrics across all sessions:
 Phase transition analysis reveals:
 
 - **Transition rate**: 57.9% of responses involve phase change
-- **Most common transition**: Integration → Generation (24.3%)
-- **Least common transition**: Transformation → Consumption (3.1%)
+- **Most common transition**: Integration to Generation (24.3%)
+- **Least common transition**: Transformation to Consumption (3.1%)
 - **Average cycles per session**: 0.44
 - **Sessions with detectable cycles**: 44%
 
@@ -162,8 +162,8 @@ Limited comparative data due to API constraints:
 
 | Model | Sessions | Success Rate | Mean Coherence | Notes |
 |-------|----------|--------------|----------------|-------|
-| GPT-3.5-turbo | 50 | 100% | 0.461 ± 0.082 | Complete dataset |
-| Claude-3-haiku | 15 | 70% | 0.45 ± 0.10 | Rate limited |
+| GPT-3.5-turbo | 50 | 100% | 0.461 +/- 0.082 | Complete dataset |
+| Claude-3-haiku | 15 | 70% | 0.45 +/- 0.10 | Rate limited |
 | Gemini-1.5-flash | 1 | 1% | N/A | API failures |
 
 ### 4.5 Synthetic Validation
@@ -226,7 +226,7 @@ Shannon entropy applications to language modeling [5] typically focus on predict
 
 ## 7. Conclusion
 
-We identified and quantified highly significant phase distribution patterns in GPT-3.5-turbo (χ² = 120.24, p < 0.0001) using established semantic similarity metrics. The model exhibits integration dominance (38.6%) and transformation suppression (9.7%), providing quantitative characterization of its behavioral patterns. The methodology using Jaccard similarity and multi-component coherence measurement offers a robust framework for language model behavioral analysis.
+We identified and quantified highly significant phase distribution patterns in GPT-3.5-turbo (chi-squared = 120.24, p < 0.0001) using established semantic similarity metrics. The model exhibits integration dominance (38.6%) and transformation suppression (9.7%), providing quantitative characterization of its behavioral patterns. The methodology using Jaccard similarity and multi-component coherence measurement offers a robust framework for language model behavioral analysis.
 
 This work contributes a novel approach to understanding language model dynamics through phase analysis, with potential applications in model selection, prompt optimization, and interpretability research. The open availability of our data and code enables reproduction and extension of these findings.
 
