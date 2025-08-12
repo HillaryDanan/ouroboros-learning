@@ -39,7 +39,7 @@ OUROBOROS_CONFIG = {
             'api_key_env': 'GOOGLE_API_KEY'
         }
     },
-    'prompts_per_model': 50,  # START WITH 2 FOR TESTING - CHANGE TO 50 FOR FULL STUDY
+    'prompts_per_model': 10,  # START WITH 2 FOR TESTING - CHANGE TO 50 FOR FULL STUDY
     'metrics_to_track': [
         'coherence_score',
         'entropy',

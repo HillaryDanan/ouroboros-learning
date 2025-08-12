@@ -28,9 +28,9 @@ def main():
         print("\nTo add API keys:")
         print("1. Edit .env file")
         print("2. Add your keys:")
-        print("   OPENAI_API_KEY=sk-...")
-        print("   ANTHROPIC_API_KEY=sk-ant-...")
-        print("   GOOGLE_API_KEY=...")
+        print("   OPENAI_API_KEY=your_key_here")
+        print("   ANTHROPIC_API_KEY=your_key_here")
+        print("   GOOGLE_API_KEY=your_key_here")
         return False
     
     print(f"\n✅ {configured_count}/3 APIs configured")

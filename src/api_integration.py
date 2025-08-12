@@ -141,7 +141,7 @@ class RealModelAPI:
             )
             
             # Rate limiting
-            time.sleep(3)
+            time.sleep(5)
             
             return response.choices[0].message.content
             
@@ -183,7 +183,7 @@ class RealModelAPI:
             )
             
             # Rate limiting
-            time.sleep(3)
+            time.sleep(5)
             
             return response.content[0].text
             
@@ -227,7 +227,7 @@ class RealModelAPI:
             )
             
             # Rate limiting
-            time.sleep(3)
+            time.sleep(5)
             
             return response.text
             
